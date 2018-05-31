@@ -1,0 +1,128 @@
+@model LoginViewModel
+
+@{
+    ViewBag.Title = "Team Registration";
+}
+<h1>@ViewBag.Title</h1>
+@if (DateTime.Now > new DateTime(2018, 7, 4, 7, 0, 0))
+{
+<div class="row">
+    <div class="col-xs-12">
+        <img class="img-responsive" src="~/img/See3Slam/registrationClosed.png" />
+    </div>
+</div>
+}
+
+<div class="row">
+    <div class="col-sm-6">
+        @if (DateTime.Now < new DateTime(2018, 7, 4, 7, 0, 0))
+        {
+            <div class="well">
+                <label>Please register for a new account each year.</label><br />
+                <a asp-controller="Account" class="btn btn-primary" asp-action="Register">Register</a>
+            </div>
+        }
+        <form asp-controller="Account" asp-action="Login" asp-route-returnUrl="@ViewBag.ReturnUrl" method="post" class="form-horizontal" role="form">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3><label asp-for="Email"></label></h3>
+                    <input asp-for="Email" class="form-control" placeholder="someone@example.com" />
+                </div>
+                <div class="col-sm-12">
+                    <h3><label asp-for="Password"></label></h3>
+                    <input asp-for="Password" class="form-control" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-sm-push-6">
+                    <button type="submit" class="btn btn-default pull-right">Log In</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <a asp-controller="Account" asp-action="ForgotPassword">Forgot My Password</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-sm-6">
+        <div class="countdown">
+            <div class="panel-heading">
+                <h3>Countdown</h3>
+            </div>
+            <div>
+                <h3 class="grey-1">
+                    <span id="days"></span> days
+                    <span id="hours"></span> hr
+                </h3>
+                <h3 class="grey-2">
+                    <span id="minutes"></span> min
+                    <span id="seconds"></span> sec
+                </h3>
+            </div>
+        </div>
+        @if (DateTime.Now < new DateTime(2018, 7, 4, 7, 0, 0))
+        {
+            <div class="row" style="color: #00ABBE; text-align: center; font-size: 1.5em; line-height: 1.3em;">
+                <div class="col-xs-12">
+                    Register from now till July 3 for $133
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@section Scripts {
+    <script>
+        (function (window, undefined) {
+            var eventDate = new Date(2018, 6, 8);
+
+            function dateDiff(date1, date2) {
+                var ms = date2 - date1, totalSecs, totalMins, totalHrs, totalDays, days, hrs, mins, secs;
+
+                totalSecs = ms / 1000;
+                totalMins = totalSecs / 60;
+                totalHrs = totalMins / 60;
+                totalDays = totalHrs / 24;
+
+                days = Math.floor(totalDays);
+                hrs = Math.floor(totalHrs - (days * 24));
+                mins = Math.floor(totalMins - (hrs * 60) - (days * 24 * 60));
+                secs = Math.floor(totalSecs - (mins * 60) - (hrs * 60 * 60) - (days * 24 * 60 * 60));
+
+                return {
+                    secs: secs,
+                    mins: mins,
+                    hrs: hrs,
+                    days: days,
+                    totalSecs: totalSecs
+                };
+            }
+
+            function countdownTo(futureDate, tickCallback, endCallback) {
+                var interval = window.setInterval(function () {
+                    var now = new Date(),
+                        diff = dateDiff(now, eventDate);
+
+                    if (diff.totalSecs < 0) {
+                        window.clearInterval(interval);
+                        endCallback();
+                        return;
+                    }
+
+                    tickCallback(diff);
+                }, 500);
+            }
+
+
+            countdownTo(eventDate, function (diff) {
+                window.document.getElementById('days').textContent = diff.days;
+                window.document.getElementById('hours').textContent = diff.hrs;
+                window.document.getElementById('minutes').textContent = diff.mins;
+                window.document.getElementById('seconds').textContent = diff.secs;
+            }, function () {
+
+            });
+        })(window);
+    </script>
+}

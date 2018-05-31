@@ -1,0 +1,75 @@
+@model RegisterViewModel
+@{
+    ViewBag.Title = "Account Setup";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p class="specialNote">
+    * Please provide us with the following information. All fields are required.<br />
+    * Names must be all letters (no special characters or punctuation).<br />
+    * NOTE: This same account can be used for all your teams you want to register.
+</p>
+
+<form asp-controller="Account" asp-action="Register" method="post" class="form-horizontal" role="form">
+    <h4>Create a new account.</h4>
+    <hr />
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Email" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Email" class="form-control" placeholder="someone@example.com" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Password" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Password" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="ConfirmPassword" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="ConfirmPassword" class="form-control" />
+        </div>
+    </div>
+    @await Html.PartialAsync("_CreateOrEdit")
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-default">Register</button>
+            <a asp-controller="Home" asp-action="Index" class="btn btn-default">Cancel</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    <script type='text/javascript'>
+        $(document).ready(function () {
+            $("input[name='Country']").click(function () {
+                $.ajaxSetup({ cache: false });
+                var selectedItem = $(this).val();
+                if (selectedItem != '' && selectedItem != 0) {
+                    if (selectedItem === 'Other') {
+                        $('#otherCountryDiv').show();
+                        $('#stateProvinceDiv').hide();
+                        $('#otherStateProvinceDiv').show();
+                    }
+                    else {
+                        $('#otherCountryDiv').hide();
+                        $('#stateProvinceDiv').show();
+                        $('#otherStateProvinceDiv').hide();
+                        $.getJSON('@Href("~/Api/Location?country=")' + selectedItem, function (data) {
+                            statesProvinces = data;
+                            var items = "<option value=''>-- Select --</option>";
+                            $.each(data, function (i, statesProvinces) {
+                                items += "<option value='" + statesProvinces.Value + "'>" + statesProvinces.Text + "</option>";
+                            });
+                            $('#StateProvince').html(items);
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+}

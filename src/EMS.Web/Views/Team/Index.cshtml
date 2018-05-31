@@ -1,0 +1,19 @@
+@inject IOptions<AppSettings> AppSettings
+@{
+    ViewBag.Title = "Teams";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <h2>Team Registration</h2>
+        <div class="panel panel-default">
+            <div class="well">
+                <p>In order to create a team, we need to know some information about each of the participants: name, address, date of birth, next grade in school (if applicable), height, phone number, email, highest basketball experience level, playing frequency, and whether the participant played in See3Slam in @(DateTime.Now.Year - 1).</p>
+                <p>A team is composed of a minimum 3 players and a maximum 4 players, no exceptions.</p>
+                <p>Please select a team name, not to exceed 20 letters. Team names must not start with the words "The" or "Team" and must all be letters (no numbers, punctuation or symbols), and may not contain any kind of vulgarity or profanity, such names will be checked and rejected. Be creative but keep it appropriate!</p>
+                <p>Please make a selection from each of the sections – all sections must be complete in order for you to complete your team’s registration.</p>
+                <p><strong>To begin the registration process, please click the "ADD TEAM" button below.</strong></p>
+            </div>
+        </div>
+    </div>
+</div>

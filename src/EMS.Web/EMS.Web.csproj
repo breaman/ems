@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="MailKit" Version="2.0.3" />
+    <PackageReference Include="MimeKit" Version="2.0.4" />
+    <PackageReference Include="Sendgrid" Version="9.9.0" />
+    <PackageReference Include="AutoMapper" Version="6.2.2" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="3.2.0" />
+    <PackageReference Include="ClosedXML" Version="0.92.1" />
+    <PackageReference Include="IntelliTect.PaymentGateway" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EMS.Domain\EMS.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
