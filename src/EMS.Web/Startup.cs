@@ -9,11 +9,14 @@ using EMS.Domain.Concrete;
 using EMS.Domain.Models;
 using EMS.Web.Models;
 using EMS.Web.Services;
+using IntelliTect.PaymentGateway.Concrete;
+using IntelliTect.PaymentGateway.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -52,6 +55,13 @@ namespace EMS.Web
             })
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
+
+            services.AddScoped<IUserClaimsPrincipalFactory<User>, EmsUserClaimsPrincipalFactory<User, Role>>();
+
+            services.Configure<RazorViewEngineOptions>(options =>
+            {
+                options.ViewLocationExpanders.Add(new EmsViewLocationExpander());
+            });
             
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
@@ -70,7 +80,7 @@ namespace EMS.Web
             switch (paymentService.ToLower())
             {
                 case "paypal":
-                   // services.AddTransient<IPaymentService, PayPalPaymentService>();
+                    services.AddTransient<IPaymentService, PayPalPaymentService>();
                     break;
                 default:
                     break;

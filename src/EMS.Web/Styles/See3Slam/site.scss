@@ -1,0 +1,534 @@
+﻿$primary: #FF6B00;
+$secondary: #FFB81D;
+$terciary: #E1E100;
+$menuFontColor: #777;
+
+[v-cloak] {
+    display: none;
+}
+
+body {
+    /*background: #00ABBE url('/img/see3slam/bg_content.jpg') center repeat-y;*/
+    background: #00ABBE;
+    font-family: sans-serif;
+}
+
+h1, h2, h3, h4, .nav li a, .nav > li > a.orange {
+    font-family: 'Arvo', Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 2.3em;
+    text-transform: uppercase;
+}
+
+h2 {
+    font-size: 1.7em;
+    text-transform: uppercase;
+}
+
+h3 {
+    font-size: 1.5em;
+}
+
+h4 {
+    font-size: 1.2em;
+}
+
+.sponsorsArea h2 {
+    font-size: 2.0em;
+}
+
+.mainContent {
+    background: #fff;
+    max-width: 958px;
+    margin: 0 auto;
+    border-right: 2px solid #888;
+    border-left: 2px solid #888;
+    padding-top: 20px;
+}
+
+.header {
+    background: url('/img/see3slam/logo.png') center no-repeat;
+    display: block;
+    height: 230px;
+    margin-bottom: 10px;
+    background-position: top;
+}
+
+.navbar-default {
+    background: none;
+}
+
+.navbar {
+    max-width: 958px;
+    border-top: 3px solid #413C36;
+    border-bottom: 0;
+    border-left: 0;
+    border-right: 0;
+    margin: 0 auto;
+}
+
+.nav li {
+    font-size: 1.1em;
+    color: #413C36;
+    text-transform: uppercase;
+}
+
+.body-content {
+    min-width: 300px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.container {
+    max-width: 958px;
+    padding: 0 25px;
+}
+
+.form-group {
+    clear: both;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #FF0000;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #ff0000;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: $primary;
+    border-color: $primary;
+    color: #FFFFFF;
+}
+
+.btn-default {
+    background: #bbb;
+    border-color: #bbb;
+    color: #fff;
+}
+
+.btn-default:hover {
+    background: #7e7e7e;
+    border-color: #7e7e7e;
+    color: #eee;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
+    background-color: $primary;
+    border-color: $primary;
+    color: #FFFFFF;
+}
+
+.grey-1 {
+    color: #666;
+    margin: 0;
+}
+
+.grey-2 {
+    color: #7e7e7e;
+    margin: 0;
+}
+
+#logoutForm {
+    padding: 15px;
+    padding-top: 13px;
+}
+
+#logoutForm li a {
+    color: $menuFontColor;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.radio-inline {
+    color: black;
+}
+
+.jumbotron {
+    background-color: rgba(0, 0, 0, 0.3) !important;
+    background-repeat: repeat-x;
+    margin-bottom: 8px;
+    color: #fff;
+    margin-top: 10px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
+.jumbotron img {
+    width: 100%;
+    max-width: 250px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.col-md-3 {
+    border-radius: 5px 0 0 5px;
+}
+
+/*.row {
+    color: #000;
+}*/
+
+/*.btn {
+    margin: 8px;
+}*/
+
+.form-control {
+    max-width: 425px;
+}
+
+.sponsors {
+    background: #fff;
+    padding: 18px;
+}
+
+.radio-inline, .checkbox-inline {
+    padding-left: 40px;
+}
+
+.countdown {
+    border-radius: 12px;
+    background: #bebdbd;
+    color: #fff;
+    font-size: 1.8em;
+    line-height: 12px;
+    padding: 15px;
+    margin: 15px;
+    text-transform: uppercase;
+}
+
+.panel-heading {
+    min-width: 300px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    padding: 0;
+    height: 65px;
+    overflow: hidden;
+}
+
+.btn-danger {
+    background-color: #ff6600;
+    border-color: #D62E00;
+    color: #FFFFFF;
+}
+
+.btn-danger:hover {
+    background-color: #A81C00;
+    border-color: #D62E00;
+}
+
+hr {
+    margin-bottom: 13px;
+    margin-top: 7px;
+    border-color: #666;
+}
+
+.sponsors img {
+    padding: 10px 20px;
+}
+
+.btn-group-justified > .btn-group .btn {
+    width: 270px;
+}
+
+.player-name, .player-info .row {
+    color: #4f4f4f;
+}
+
+.panel-body {
+    background: #ededed;
+}
+
+.panel-heading, .panel-body, .panel-heading-player {
+    min-width: 300px;
+}
+
+.panel-default > .panel-heading {
+    background: #666;
+    border-color: #ddd;
+    color: #f5f5f5;
+}
+
+.panel-default > .panel-heading-light {
+    background: #e1e0e0;
+    color: #666;
+    padding: 15px;
+}
+
+.panel-default > .panel-heading-1 {
+    background: #a9a9a9;
+}
+
+.panel-default > .panel-heading-2 {
+    background: #b9b9b9;
+}
+
+.panel-default > .panel-heading-3 {
+    background: #c9c9c9;
+}
+
+.panel-default > .panel-heading-4 {
+    background: #d9d9d9;
+}
+
+.btn-delete {
+    color: #333;
+    background-color: #fff;
+}
+
+button.btn {
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
+.btn-1 {
+    border: 1px solid rgba(0, 0, 0, 0);
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.btn-green {
+    background: #529802;
+    color: #fff;
+    font-size: 1.4em;
+    line-height: 1.6em;
+    font-weight: 200;
+    height: 64px;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+}
+
+.btn-grey {
+    background: #666;
+    color: #fff;
+    font-size: 1.4em;
+    line-height: 1.6em;
+    font-weight: 200;
+    height: 64px;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+}
+
+.btn-orange {
+    background: #fe8918;
+    color: #fff;
+    font-size: 1.4em;
+    line-height: 1.6em;
+    font-weight: 200;
+    height: 64px;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+}
+
+.panel, .panel-default {
+    border: 0;
+    -moz-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.5) !important;
+    -webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.5) !important;
+    box-shadow: 0 0px 0px rgba(0, 0, 0, 0.5) !important;
+}
+
+.panel-heading .name-block {
+    line-height: 22px;
+}
+
+.name-block {
+    bottom: 50px;
+    float: left;
+    position: relative;
+    left: 75px;
+}
+
+.panel-default > .panel-heading .badge-warning {
+    background-color: orange;
+}
+.team-name {
+    font-size: 1.5em;
+    font-weight: 200;
+    color: orange;
+}
+
+.player-type {
+    bottom: 63px !important;
+}
+
+.player-name {
+    bottom: 64px !important;
+    line-height: 22px;
+    max-width: 175px;
+    color: #4f4f4f;
+    font-size: 1.2em;
+}
+
+#teams label {
+    font-size: 12px;
+    font-weight: 200;
+}
+#teams .form-control {
+    max-width: 425px;
+}
+
+#teams .panel {
+    margin-bottom: -2px;
+    background: none;
+}
+
+#teams .glyphicon-plus-sign, #teams .glyphicon-plus-sign:hover, #teams .glyphicon-minus-sign, #teams .glyphicon-minus-sign:hover {
+    background-image: url('/img/See3Slam/orange-btn-bg.jpg');
+}
+
+#teams .glyphicon-plus-sign, #teams .glyphicon-minus-sign, #teams .glyphicon-plus, #teams .glyphicon-plus-orange {
+    border-radius: 0;
+    border: 0;
+    display: block;
+    width: 64px;
+    height: 64px;
+    color: #fff;
+    font-size: 55px;
+    line-height: 45px;
+    font-weight: 100;
+    font-family: 'Segoe UI';
+}
+
+#teams .glyphicon-minus-sign:before, #teams .glyphicon-minus-orange:before {
+    content: "-";
+}
+
+#teams .glyphicon-plus-sign:before, #teams .glyphicon-plus-orange:before {
+    content: "+";
+}
+
+.glyphicon-plus-orange:before {
+    color: #ff7d00;
+}
+
+#teams .glyphicon-plus, .glyphicon-plus-orange {
+    margin: -2px 0 0 -1px;
+    border: 0;
+    line-height: .85em;
+}
+
+#teams .glyphicon-plus-orange {
+    background: #fc4601;
+}
+
+div.panel-heading div.row div span.glyphicon {
+    margin-top: -1px !important;
+}
+
+#teams .glyphicon-plus {
+    background: #81c604;
+    margin: -2px 0 0 -1px;
+    border: 0;
+    line-height: .85em;
+}
+
+.modal-mask {
+    position: fixed;
+    z-index: 9998;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .5);
+    display: table;
+    transition: opacity .3s ease;
+}
+
+.modal-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.modal-container {
+    width: 300px;
+    margin: 0px auto;
+    padding: 20px 30px;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+    transition: all .3s ease;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.action-modal-container {
+    width: 300px;
+    margin: 0px auto;
+    padding: 20px 30px;
+    transition: all .3s ease;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.modal-header h3 {
+    margin-top: 0;
+    color: #42b983;
+}
+
+.modal-body {
+    margin: 20px 0;
+}
+
+.modal-default-button {
+    float: right;
+}
+
+/*
+ * The following styles are auto-applied to elements with
+ * transition="modal" when their visibility is toggled
+ * by Vue.js.
+ *
+ * You can easily play with the modal transition by editing
+ * these styles.
+ */
+
+.modal-enter {
+    opacity: 0;
+}
+
+.modal-leave-active {
+    opacity: 0;
+}
+
+.modal-enter .modal-container,
+.modal-leave-active .modal-container {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}

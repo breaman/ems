@@ -1,0 +1,24 @@
+﻿@using System.Security.Claims
+
+@if (User.HasClaim(ClaimTypes.Role, "Manager"))
+{
+    <li><a asp-controller="Team" asp-action="Index">Home</a></li>
+    @*<li><a asp-controller="Account" asp-action="Manage">Account</a></li>*@
+    <li><a asp-controller="Transactions" asp-action="Index">My Transactions</a></li>
+}
+@if (User.HasClaim(ClaimTypes.Role, "Administrator") || User.HasClaim(ClaimTypes.Role, "Support"))
+{
+    <li><a asp-controller="Admin" asp-action="CompleteTeamReport">Complete Team Report</a></li>
+    <li><a asp-controller="Admin" asp-action="IncompleteTeamReport">Incomplete Team Report</a></li>
+    @*@if (User.HasClaim(ClaimTypes.Role, "Administrator"))
+        {
+            <li><a asp-controller="FindTeam" asp-action="Home" asp-route-area="Admin">Edit / Delete Team</a></li>
+        }
+        else
+        {
+            <li><a asp-controller="FindTeam" asp-action="Home" asp-route-area="Admin">Edit Team</a></li>
+        }*@
+    @*<li><a asp-controller="LoginAsOther" asp-action="Home" asp-route-area="Admin">Login as Different User</a></li>*@
+    <li><a asp-controller="Admin" asp-action="ActivateUser">Activate User</a></li>
+    @*<li><a asp-controller="ChangeUserPassword" asp-action="Home" asp-route-area="Admin">Change A User's Password</a></li>*@
+}

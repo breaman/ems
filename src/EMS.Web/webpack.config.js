@@ -1,83 +1,50 @@
-const autoprefixer = require('autoprefixer');
-const path = require('path');
+﻿const path = require('path');
+const merge = require('webpack-merge');
 const webpack = require('webpack');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
 
-module.exports = {
+const isDevelopment = process.env.ASPNETCORE_ENVIRONMENT === 'see3slamdev';
+
+module.exports = merge({
+    stats: { modules: false },
+    context: __dirname,
+    resolve: {
+        extensions: ['.js', '.ts'],
+        alias: {
+            vue: 'vue/dist/vue.js'
+        }
+    },
+    module: {
+        loaders: [
+            { test: /\.ts(x?)$/, exclude: /node_modules/, loader: 'awesome-typescript-loader?silent' }
+        ]
+    },
     entry: {
-        main: './Scripts/main.ts',
-        teamManagement: './Scripts/teamManagement.ts',
-        checkout: './Scripts/checkout.ts',
-        index: './Scripts/index.ts'
+        teamManagement: ['./Scripts/Utils.ts', './Scripts/TeamComponent.ts', './Scripts/PlayerComponent.ts', './Scripts/TeamManagement.ts'],
+        checkout: ['./Scripts/Utils.ts', './Scripts/Checkout.ts']
     },
     output: {
         path: path.join(__dirname, 'wwwroot', 'js'),
         filename: '[name].js',
-        publicPath: '/js'
+        publicPath: '/js/'
     },
     plugins: [
-        new MiniCssExtractPlugin({
-            filename: '../css/[name].css',
-            chunkFilename: '[id].css',
-            path: path.join(__dirname, 'wwwroot', 'css')
-        })
-    ],
-    module: {
-        rules: [
-            {
-                test: /\.s?[ac]ss$/,
-                use: [
-                    {
-                        loader: MiniCssExtractPlugin.loader
-                    },
-                    {
-                        loader: 'css-loader',
-                        options: {minimize: true},
-                    },
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            ident: 'postcss',
-                            plugins: () => [autoprefixer()],
-                        }
-                    },
-                    {
-                        loader: 'sass-loader'
-                    }
-                ],
-            },
-            {
-                test: /\.vue$/,
-                loader: 'vue-loader',
-                options: {
-                    loaders: {
-                        'scss': 'vue-style-loader!css-loader!sass-loader',
-                        'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax',
-                    }
-                }
-            },
-            {
-                test: /\.tsx?/,
-                loader: 'ts-loader',
-                exclude: /node_modules/,
-                options: {
-                    appendTsSuffixTo: [/\.vue$/],
-                }
-            },
-            {
-                test: /\.(png|jpg|gif|svg)$/,
-                loader: 'file-loader',
-                options: {
-                    name: '[name].[ext]?[hash]'
-                }
+        new CheckerPlugin(),
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: JSON.stringify(isDevelopment ? 'development' : 'production')
             }
-        ]
-    },
-    resolve: {
-        extensions: ['.ts', '.js', '.vue', '.json'],
-        alias: {
-            'vue$': 'vue/dist/vue.js'
-        }
-    },
-    devtool: 'eval-source-map',
-}
+        }),
+        new webpack.DllReferencePlugin({
+            context: __dirname,
+            manifest: require('./wwwroot/lib/vendor-manifest.json')
+        })
+    ].concat(isDevelopment ? [
+        new webpack.SourceMapDevToolPlugin({
+            filename: '[file].map',
+            moduleFilenameTemplate: path.relative(path.join('wwwroot', 'dist'), '[resourcePath]')
+        })
+    ] : [
+            new webpack.optimize.UglifyJsPlugin()
+    ])
+});

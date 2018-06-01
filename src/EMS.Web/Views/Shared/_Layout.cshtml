@@ -1,4 +1,4 @@
-@inject IOptions<AppSettings> AppSettings
+﻿@inject IOptions<AppSettings> AppSettings
 <!DOCTYPE html>
 
 <html>
@@ -9,12 +9,11 @@
     <title>@AppSettings.Value.SiteName - @ViewBag.Title</title>
     <link href='//fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
-    <link href="/css/index.css" rel="stylesheet" />
+    <link href="~/lib/vendor.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="container">
+    <div>
         @RenderBody()
     </div>
-    @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -1,4 +1,6 @@
-@inject IOptions<AppSettings> AppSettings
+﻿@using Microsoft.AspNetCore.Identity
+@inject IOptions<AppSettings> appSettings
+@inject SignInManager<User> SignInManager
 @{
     ViewBag.Title = "Teams";
 }
@@ -17,3 +19,346 @@
         </div>
     </div>
 </div>
+<div id="teams" v-cloak>
+    <div class="teamArea">
+        <team v-for="team in teams" :team="team"></team>
+    </div>
+    <div class="col-sm-12" style="padding-top: 10px" v-if="teamsReadyForCheckout">
+        <div class="row">
+            <div class="pull-right"><strong>Click "Proceed to Checkout" NOW to finalize your registration and complete payment.</strong></div>
+            <div class="pull-right"><strong>Please make sure you have saved your team(s) before proceeding to checkout.</strong></div>
+        </div>
+        @if (DateTime.Now < new DateTime(2018, 7, 4, 7, 0, 0) || User.HasClaim(ClaimTypes.Role, "Administrator"))
+        {
+        <div class="row">
+            <a asp-controller="checkout" class="btn btn-green pull-right" style="width: 220px;"><div style="padding-top:15px">Proceed to Checkout</div></a>
+        </div>
+        }
+    </div>
+@if (DateTime.Now < new DateTime(2018, 7, 4, 7, 0, 0) || User.HasClaim(ClaimTypes.Role, "Administrator"))
+{
+    <div class="btn-group-justified panel panel-default add-team">
+        <div class="btn-group">
+            <div class="btn btn-orange" v-on:click="addTeam">
+                <span class="glyphicon glyphicon-plus-orange"></span>
+                <span class="name-block">Add Team</span>
+            </div>
+        </div>
+    </div>
+}
+</div>
+<template id="team-template">
+    <div class="row">
+        <div class="panel panel-default team-info">
+            <action-modal v-if="showActionModal"></action-modal>
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-sm-4 col-xs-10 team-name">
+                        <span class="glyphicon btn btn-default" v-bind:class="{'glyphicon-minus-sign':displayTeamDetails, 'glyphicon-plus-sign':!displayTeamDetails}" v-on:click="displayTeamDetails = !displayTeamDetails"></span>
+                        <span class="name-block">{{teamDisplayName}}</span>
+                    </div>
+                    <div class="col-sm-2 hidden-xs">
+                        <span class="hidden-sm">Division: </span>
+                        <span>{{team.division.name}}</span>
+                    </div>
+                    <div class="col-sm-2 hidden-xs">
+                        <span class="hidden-sm">Gender: </span>
+                        <span>{{team.gender.name}}</span>
+                    </div>
+                    <div class="col-sm-2 hidden-xs">
+                        <span class="hidden-sm">Status: </span>
+                        <span>{{team.status}}</span>
+                    </div>
+                    <div class="col-xs-1">
+                        <span class="badge badge-warning">{{team.validationErrors.length}}</span>
+                    </div>
+                    <div class="col-xs-1">
+                        <span class="glyphicon glyphicon-remove pull-right btn btn-default" v-if="false" style="background: black" title="Delete the team"></span>
+                    </div>
+                </div>
+            </div>
+            <div v-if="displayTeamDetails && validationErrors.length > 0">
+                <ul class="validation-summary-errors">
+                    <li class="field-validation-error" v-for="error in validationErrors">{{error}}</li>
+                </ul>
+            </div>
+            <div v-show="displayTeamDetails && team.validationErrors.length > 0">
+                <ul class="validation-summary-errors">
+                    <li class="field-validation-error" v-for="error in team.validationErrors">{{error}}</li>
+                </ul>
+            </div>
+            <div class="row" v-if="displayTeamDetails && (displayPromoCode || hasPromoCode)">
+                <!-- Enter Promo Code-->
+                <div class="col-sm-12" v-show="!hasPromoCode">
+                    <div class="col-sm-3">
+                        <label>Promotional Code</label>
+                        <input type="text" class="form-control" placeholder="Promo Code" v-model="team.promotionalCode" />
+                    </div>
+                </div>
+                <!-- Display and allow to clear Promo Code -->
+                <div class="col-sm-12" v-show="hasPromoCode">
+                    <div class="alert alert-warning">
+                        <span>Promotional Code: {{team.promotionalCode}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body" v-if="displayTeamDetails">
+                <div class="alert alert-warning" v-show="errors.any()">
+                    <div class="help is-danger" v-for="formError in errors.all()">{{formError}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label>Team Name:</label>
+                        <input type="text" class="form-control" placeholder="Team Name" v-model="team.name" v-validate="'required|alpha_spaces'" name="teamName" />
+                    </div>
+                    <div class="col-sm-3">
+                        <label>Division</label>
+                        <select class="form-control" v-model="team.division" v-validate="'required'" name="division">
+                            <option v-for="division in divisions" v-bind:value="division">
+                                {{ division.name }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Gender</label>
+                        <select class="form-control" v-model="team.gender" v-validate="'required'" name="teamGender">
+                            <option v-for="gender in genders" v-bind:value="gender">
+                                {{ gender.name }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <label>Competition Level</label>
+                        <select class="form-control" v-model="team.competitionLevel" v-validate="'required'" name="competitionLevel">
+                            <option v-for="competitionLevel in competitionLevels" v-bind:value="competitionLevel">
+                                {{ competitionLevel.name }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <hr class="spacer" />
+                <span v-show="team.players != null && team.players.length > 0">Only 3 players are required but you may have a maximum of 4. Names must all be letters (no numbers or special punctuation)</span>
+                <!-- Players will go here -->
+                <player v-for="(player, index) in team.players" :player="player" :index="index"></player>
+                <div class="btn-group btn-group-justified">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-1 btn-green" v-on:click="addPlayer" v-if="team.players.length < 4">
+                            <span class="glyphicon glyphicon-plus"></span>
+                            <span class="name-block">Add Player</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+@if (DateTime.Now < new DateTime(2018, 7, 4, 7, 0, 0) || User.HasClaim(ClaimTypes.Role, "Administrator"))
+{
+            <div v-if="displayTeamDetails" class="col-sm-12" style="padding-bottom: 10px">
+                <button type="button" class="pull-left btn-green btn" v-if="!hasPromoCode" v-on:click="displayPromoCode=true" style="width: 200px; height: 50px">Enter Code</button>
+                <button type="button" class="btn btn-grey pull-right" v-on:click="cancel" style="width: 200px; height: 50px">Cancel</button>
+                <button type="button" class="btn btn-green pull-right" v-on:click="save" style="width: 200px; height: 50px">Save Team</button>
+            </div>
+}
+        </div>
+    </div>
+</template>
+<template id="player-template">
+    <div class="panel panel-default player-info">
+        <modal v-if="showModal">
+            <h3 slot="header">Delete Player?</h3>
+            <p slot="body">Are you sure you want to delete {{fullName}}?</p>
+            <p slot="footer" class="btn-group">
+                <button class="btn btn-primary" v-on:click="showModal=false">Yes</button>
+                <button class="btn btn-default grey">No</button>
+            </p>
+        </modal>
+        <div class="panel-heading" v-bind:class="'panel-heading-' + (index + 1)">
+            <div class="row">
+                <div class="col-sm-5 col-xs-11">
+                    <span class="glyphicon btn btn-default" v-bind:class="{'glyphicon-minus-sign':displayPlayerDetails, 'glyphicon-plus-sign':!displayPlayerDetails}" v-on:click="displayPlayerDetails = !displayPlayerDetails"></span>
+                    <span class="player-type name-block">{{playerType}}</span><br />
+                    <span class="player-name name-block">{{fullName}}</span>
+                </div>
+                <div class="col-sm-2 hidden-xs">
+                    <span>{{genderDisplayName}}</span>
+                </div>
+                <div class="col-sm-2 hidden-xs">
+                    <span>Age: </span>
+                    <span>{{player.age}}</span>
+                </div>
+                <div class="col-sm-2 hidden-xs">
+                    <span>Height: </span>
+                    <span>{{heightDisplay}}</span>
+                </div>
+                <div class="col-xs-1">
+                    <span class="glyphicon glyphicon-remove pull-right btn btn-default" v-if="false" style="background: black;" v-on:click="deletePlayer" title="Delete the player"></span>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body" v-if="displayPlayerDetails">
+            <!-- Show player issues -->
+            <div class="alert alert-warning" v-show="errors.any()">
+                <div class="help is-danger" v-for="formError in errors.all()">{{formError}}</div>
+            </div>
+            <!-- Name and other Information -->
+            <div class="row">
+                <div class="col-sm-3">
+                    <label>First Name</label>
+                    <input type="text" class="form-control" placeholder="First Name" v-model="player.firstName" v-validate="'required'" name="firstName" />
+                </div>
+                <div class="col-sm-3">
+                    <label>Last Name</label>
+                    <input type="text" class="form-control" placeholder="Last Name" v-model="player.lastName" v-validate="'required'" name="lastName" />
+                </div>
+                <div class="col-sm-2">
+                    <label>Gender</label>
+                    <select class="form-control" v-model="player.gender" name="gender" v-validate="'required'">
+                        <option v-for="gender in genders" v-bind:value="gender.id">
+                            {{ gender.name }}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <label>Age on 7/8/@DateTime.Now.Year</label>
+                    <input type="text" class="form-control" placeholder="Age" v-model="player.age" v-validate="'required'" name="age" />
+                </div>
+                <div class="col-sm-2">
+                    <label>Next Grade</label>
+                    <select class="form-control" v-model="player.nextGrade" name="nextGrade" v-validate="'required'">
+                        <option v-for="grade in grades" v-bind:value="grade.id">
+                            {{ grade.name }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <!-- height information -->
+                <div class="col-sm-2">
+                    <label>Height Feet</label>
+                    <select class="form-control" v-model="player.heightFeet" name="heightFeet" v-validate="'required'">
+                        <option v-for="foot in feet" v-bind:value="foot.id">
+                            {{ foot.name }}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <label>Height Inches</label>
+                    <select class="form-control" v-model="player.heightInches" name="heighInches" v-validate="'required'">
+                        <option v-for="inch in inches" v-bind:value="inch.id">
+                            {{ inch.name }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <!-- Address Information -->
+            <div class="row">
+                <div class="col-sm-3">
+                    <label>Address</label>
+                    <input type="text" class="form-control" placeholder="Address" v-model="player.address" name="address" v-validate="'required'" />
+                </div>
+                <div class="col-sm-3">
+                    <label>City</label>
+                    <input type="text" class="form-control" placeholder="City" v-model="player.city" name="city" v-validate="'required'" />
+                </div>
+                <div class="col-sm-2">
+                    <label>State/Province</label>
+                    <select class="form-control" v-model="player.state" name="state" v-validate="'required'">
+                        <option v-for="stateProvince in statesProvinces" v-bind:value="stateProvince">
+                            {{ stateProvince }}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col-sm-12">Country</label>
+                    <div class="col-sm-6"><input type="radio" v-model="player.country" v-validate="'required'" value="US" v-bind:name="countryRadioName" />US</div>
+                    <div class="col-sm-6"><input type="radio" v-model="player.country" v-validate="'required'" value="CA" v-bind:name="countryRadioName" />CA</div>
+                </div>
+                <div class="col-sm-2">
+                    <label>Zip</label>
+                    <input type="text" class="form-control" placeholder="Zip" v-model="player.zip" name="zip" v-validate="'required'" />
+                </div>
+            </div>
+            <!-- Contact Information-->
+            <div class="row">
+                <div class="col-sm-3">
+                    <label>Phone</label>
+                    <input type="text" class="form-control" placeholder="Phone" v-model="player.phone" name="phone" v-validate="'required'" />
+                </div>
+                <div class="col-sm-3">
+                    <label>Birthdate</label>
+                    <input type="text" class="form-control" placeholder="Birthdate" v-model="player.birthdate" name="birthdate" v-validate="'required'" />
+                </div>
+                <div class="col-sm-4">
+                    <label>Email</label>
+                    <input type="email" class="form-control" placeholder="Email" v-model="player.email" name="email" v-validate="'required'" />
+                </div>
+                <div class="col-sm-2">
+                    <label>Shirt Size</label>
+                    <select class="form-control" v-model="player.shirtSize" name="shirtSize" v-validate="'required'">
+                        <option v-for="shirtSize in shirtSizes" v-bind:value="shirtSize.id">
+                            {{ shirtSize.name }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <!-- Skill Information-->
+            <div class="row">
+                <div class="col-sm-3">
+                    <label>Highest Play Level</label>
+                    <select class="form-control" v-model="player.playingExperience" name="playingExperienc" v-validate="'required'">
+                        <option v-for="experience in experiences" v-bind:value="experience.id">
+                            {{ experience.name }}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-sm-4">
+                    <label>Play Frequency (Last 12 Months)</label>
+                    <select class="form-control" v-model="player.playingFrequency" name="playingFrequency" v-validate="'required'">
+                        <option v-for="frequency in frequencies" v-bind:value="frequency.id">
+                            {{ frequency.name }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <label class="checkbox pull-right"><input type="checkbox" v-model="player.playedLastYear" /> Did you play in the @appSettings.Value.TournamentName in @(DateTime.Now.Year - 1)?</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<template id="delete-template">
+    <transition name="modal">
+        <div class="modal-mask">
+            <div class="modal-wrapper">
+                <div class="modal-container">
+                    <div class="modal-header">
+                        <slot name="header">default header</slot>
+                    </div>
+                    <div class="modal-body">
+                        <slot name="body">default body</slot>
+                    </div>
+                    <div class="modal-footer">
+                        <slot name="footer">
+                            <div>default footer</div>
+                            <button class="modal-default-button" v-on:click="$emit('close')">OK</button>
+                        </slot>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </transition>
+</template>
+<template id="action-template">
+    <transition name="modal">
+        <div class="modal-mask">
+            <div class="modal-wrapper">
+                <div class="action-modal-container">
+                    <img src="~/img/See3Slam/action.gif" />
+                </div>
+            </div>
+        </div>
+    </transition>
+</template>
+@section Scripts {
+    <script src="~/js/teamManagement.js"></script>
+}
