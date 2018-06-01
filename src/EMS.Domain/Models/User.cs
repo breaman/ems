@@ -21,5 +21,6 @@ namespace EMS.Domain.Models
         public string Zip { get; set; }
         public string SecondaryPhoneNumber { get; set; }
         public DateTimeOffset? MemberSince { get; set; }
+        public string HowDidYouHearAboutUs { get; set; }
     }
 }

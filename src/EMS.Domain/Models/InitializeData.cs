@@ -71,24 +71,25 @@ namespace EMS.Domain.Models
                 context.TournamentParameters.Add(new TournamentParameter
                 {
                     Name = "TournamentDate",
-                    Value = new DateTimeOffset(new DateTime(2018, 7, 8)).ToString()
+                    Value = new DateTimeOffset(new DateTime(2018, 7, 14)).ToString()
                 });
                 context.SaveChangesAsync().Wait();
             }
             if (!context.Divisions.Any())
             {
-                context.Divisions.Add(new Division { Name = "Over 6 Feet", MinimumNumberOfParticipants = 3, MaximumNumberOfParticipants = 4, IsHeightBased = true, HeightLowerLimit = 0, HeightUpperLimit = 118, Cost = 133, DisplayOrder = 1 });
-                context.Divisions.Add(new Division { Name = "6 Feet and Under", MinimumNumberOfParticipants = 3, MaximumNumberOfParticipants = 4, IsHeightBased = true, HeightLowerLimit = 0, HeightUpperLimit = 72, Cost = 133, DisplayOrder = 2 });
+                context.Divisions.Add(new Division { Name = "Over 6 Feet", MinimumNumberOfParticipants = 3, MaximumNumberOfParticipants = 4, IsHeightBased = true, HeightLowerLimit = 0, HeightUpperLimit = 118, Cost = 100, DisplayOrder = 1 });
+                context.Divisions.Add(new Division { Name = "6 Feet and Under", MinimumNumberOfParticipants = 3, MaximumNumberOfParticipants = 4, IsHeightBased = true, HeightLowerLimit = 0, HeightUpperLimit = 72, Cost = 100, DisplayOrder = 2 });
                 //context.Divisions.Add(new Division { Name = "Open", MinimumNumberOfParticipants = 3, MaximumNumberOfParticipants = 4, Cost = 133, DisplayOrder = 3 });
-                context.Divisions.Add(new Division { Name = "High School - Over 6 Feet", MinimumNumberOfParticipants = 3, MaximumNumberOfParticipants = 4, IsHeightBased = true, IsGradeBased = true, HeightLowerLimit = 0, HeightUpperLimit = 118, GradeLowerLimit = 9, GradeUpperLimit = 12, Cost = 133, DisplayOrder = 4 });
-                context.Divisions.Add(new Division { Name = "High School - 6 Feet and Under", MinimumNumberOfParticipants = 3, MaximumNumberOfParticipants = 4, IsHeightBased = true, IsGradeBased = true, HeightLowerLimit = 0, HeightUpperLimit = 72, GradeLowerLimit = 9, GradeUpperLimit = 12, Cost = 133, DisplayOrder = 5 });
-                context.Divisions.Add(new Division { Name = "Grade 1-2", MinimumNumberOfParticipants = 3, MaximumNumberOfParticipants = 4, IsGradeBased = true, GradeLowerLimit = 1, GradeUpperLimit = 2, Cost = 133, DisplayOrder = 6 });
-                context.Divisions.Add(new Division { Name = "Grade 3-4", MinimumNumberOfParticipants = 3, MaximumNumberOfParticipants = 4, IsGradeBased = true, GradeLowerLimit = 3, GradeUpperLimit = 4, Cost = 133, DisplayOrder = 7 });
-                context.Divisions.Add(new Division { Name = "Grade 5-6", MinimumNumberOfParticipants = 3, MaximumNumberOfParticipants = 4, IsGradeBased = true, GradeLowerLimit = 5, GradeUpperLimit = 6, Cost = 133, DisplayOrder = 8 });
-                context.Divisions.Add(new Division { Name = "Grade 7-8", MinimumNumberOfParticipants = 3, MaximumNumberOfParticipants = 4, IsGradeBased = true, GradeLowerLimit = 7, GradeUpperLimit = 8, Cost = 133, DisplayOrder = 9 });
-                context.Divisions.Add(new Division { Name = "Wheelchair", MinimumNumberOfParticipants = 3, MaximumNumberOfParticipants = 4, Cost = 133, DisplayOrder = 10 });
-                context.Divisions.Add(new Division { Name = "Special Olympics", MinimumNumberOfParticipants = 3, MaximumNumberOfParticipants = 4, Cost = 133, DisplayOrder = 11 });
-                context.Divisions.Add(new Division { Name = "Unified", MinimumNumberOfParticipants = 3, MaximumNumberOfParticipants = 4, Cost = 133, DisplayOrder = 12 });
+                context.Divisions.Add(new Division { Name = "High School - Over 6 Feet", MinimumNumberOfParticipants = 3, MaximumNumberOfParticipants = 4, IsHeightBased = true, IsGradeBased = true, HeightLowerLimit = 0, HeightUpperLimit = 118, GradeLowerLimit = 9, GradeUpperLimit = 12, Cost = 100, DisplayOrder = 4 });
+                context.Divisions.Add(new Division { Name = "High School - 6 Feet and Under", MinimumNumberOfParticipants = 3, MaximumNumberOfParticipants = 4, IsHeightBased = true, IsGradeBased = true, HeightLowerLimit = 0, HeightUpperLimit = 72, GradeLowerLimit = 9, GradeUpperLimit = 12, Cost = 100, DisplayOrder = 5 });
+                context.Divisions.Add(new Division { Name = "Grade 1-2", MinimumNumberOfParticipants = 3, MaximumNumberOfParticipants = 4, IsGradeBased = true, GradeLowerLimit = 1, GradeUpperLimit = 2, Cost = 100, DisplayOrder = 6 });
+                context.Divisions.Add(new Division { Name = "Grade 3-4", MinimumNumberOfParticipants = 3, MaximumNumberOfParticipants = 4, IsGradeBased = true, GradeLowerLimit = 3, GradeUpperLimit = 4, Cost = 100, DisplayOrder = 7 });
+                context.Divisions.Add(new Division { Name = "Grade 5-6", MinimumNumberOfParticipants = 3, MaximumNumberOfParticipants = 4, IsGradeBased = true, GradeLowerLimit = 5, GradeUpperLimit = 6, Cost = 100, DisplayOrder = 8 });
+                context.Divisions.Add(new Division { Name = "Grade 7-8", MinimumNumberOfParticipants = 3, MaximumNumberOfParticipants = 4, IsGradeBased = true, GradeLowerLimit = 7, GradeUpperLimit = 8, Cost = 100, DisplayOrder = 9 });
+                // context.Divisions.Add(new Division { Name = "Wheelchair", MinimumNumberOfParticipants = 3, MaximumNumberOfParticipants = 4, Cost = 133, DisplayOrder = 10 });
+                // context.Divisions.Add(new Division { Name = "Special Olympics", MinimumNumberOfParticipants = 3, MaximumNumberOfParticipants = 4, Cost = 133, DisplayOrder = 11 });
+                // context.Divisions.Add(new Division { Name = "Unified", MinimumNumberOfParticipants = 3, MaximumNumberOfParticipants = 4, Cost = 133, DisplayOrder = 12 });
+                context.Divisions.Add(new Division { Name = "Over 35", MinimumNumberOfParticipants = 3, MaximumNumberOfParticipants = 4, Cost = 100, DisplayOrder = 3 });
 
                 context.SaveChangesAsync().Wait();
             }
@@ -118,15 +119,18 @@ namespace EMS.Domain.Models
                 //context.Genders.Add(new Gender { Name = "Co-Ed", DisplayOrder = 1, DivisionId = divisions.SingleOrDefault(d => d.Name == "Grade 7-8").Id });
                 context.Genders.Add(new Gender { Name = "Male", DisplayOrder = 2, DivisionId = divisions.SingleOrDefault(d => d.Name == "Grade 7-8").Id });
                 context.Genders.Add(new Gender { Name = "Female", DisplayOrder = 3, DivisionId = divisions.SingleOrDefault(d => d.Name == "Grade 7-8").Id });
-                context.Genders.Add(new Gender { Name = "Co-Ed", DisplayOrder = 1, DivisionId = divisions.SingleOrDefault(d => d.Name == "Special Olympics").Id });
-                context.Genders.Add(new Gender { Name = "Male", DisplayOrder = 2, DivisionId = divisions.SingleOrDefault(d => d.Name == "Special Olympics").Id });
-                context.Genders.Add(new Gender { Name = "Female", DisplayOrder = 3, DivisionId = divisions.SingleOrDefault(d => d.Name == "Special Olympics").Id });
-                context.Genders.Add(new Gender { Name = "Co-Ed", DisplayOrder = 1, DivisionId = divisions.SingleOrDefault(d => d.Name == "Wheelchair").Id });
-                context.Genders.Add(new Gender { Name = "Male", DisplayOrder = 2, DivisionId = divisions.SingleOrDefault(d => d.Name == "Wheelchair").Id });
-                context.Genders.Add(new Gender { Name = "Female", DisplayOrder = 3, DivisionId = divisions.SingleOrDefault(d => d.Name == "Wheelchair").Id });
-                context.Genders.Add(new Gender { Name = "Co-Ed", DisplayOrder = 1, DivisionId = divisions.SingleOrDefault(d => d.Name == "Unified").Id });
-                context.Genders.Add(new Gender { Name = "Male", DisplayOrder = 2, DivisionId = divisions.SingleOrDefault(d => d.Name == "Unified").Id });
-                context.Genders.Add(new Gender { Name = "Female", DisplayOrder = 3, DivisionId = divisions.SingleOrDefault(d => d.Name == "Unified").Id });
+                // context.Genders.Add(new Gender { Name = "Co-Ed", DisplayOrder = 1, DivisionId = divisions.SingleOrDefault(d => d.Name == "Special Olympics").Id });
+                // context.Genders.Add(new Gender { Name = "Male", DisplayOrder = 2, DivisionId = divisions.SingleOrDefault(d => d.Name == "Special Olympics").Id });
+                // context.Genders.Add(new Gender { Name = "Female", DisplayOrder = 3, DivisionId = divisions.SingleOrDefault(d => d.Name == "Special Olympics").Id });
+                // context.Genders.Add(new Gender { Name = "Co-Ed", DisplayOrder = 1, DivisionId = divisions.SingleOrDefault(d => d.Name == "Wheelchair").Id });
+                // context.Genders.Add(new Gender { Name = "Male", DisplayOrder = 2, DivisionId = divisions.SingleOrDefault(d => d.Name == "Wheelchair").Id });
+                // context.Genders.Add(new Gender { Name = "Female", DisplayOrder = 3, DivisionId = divisions.SingleOrDefault(d => d.Name == "Wheelchair").Id });
+                // context.Genders.Add(new Gender { Name = "Co-Ed", DisplayOrder = 1, DivisionId = divisions.SingleOrDefault(d => d.Name == "Unified").Id });
+                // context.Genders.Add(new Gender { Name = "Male", DisplayOrder = 2, DivisionId = divisions.SingleOrDefault(d => d.Name == "Unified").Id });
+                // context.Genders.Add(new Gender { Name = "Female", DisplayOrder = 3, DivisionId = divisions.SingleOrDefault(d => d.Name == "Unified").Id });
+                context.Genders.Add(new Gender { Name = "Co-Ed", DisplayOrder = 1, DivisionId = divisions.SingleOrDefault(d => d.Name == "Over 35").Id });
+                context.Genders.Add(new Gender { Name = "Male", DisplayOrder = 2, DivisionId = divisions.SingleOrDefault(d => d.Name == "Over 35").Id });
+                context.Genders.Add(new Gender { Name = "Female", DisplayOrder = 3, DivisionId = divisions.SingleOrDefault(d => d.Name == "Over 35").Id });
 
                 context.SaveChangesAsync().Wait();
             }
@@ -184,17 +188,22 @@ namespace EMS.Domain.Models
                 context.CompetitionLevels.Add(new CompetitionLevel { Name = "Recreational", DisplayOrder = 1, DivisionId = divisionId, GenderId = genders.SingleOrDefault(g => g.DivisionId == divisionId && g.Name == "Male").Id });
                 context.CompetitionLevels.Add(new CompetitionLevel { Name = "Recreational", DisplayOrder = 1, DivisionId = divisionId, GenderId = genders.SingleOrDefault(g => g.DivisionId == divisionId && g.Name == "Female").Id });
 
-                divisionId = divisions.SingleOrDefault(d => d.Name == "Special Olympics").Id;
-                context.CompetitionLevels.Add(new CompetitionLevel { Name = "Recreational", DisplayOrder = 1, DivisionId = divisionId, GenderId = genders.SingleOrDefault(g => g.DivisionId == divisionId && g.Name == "Co-Ed").Id });
-                context.CompetitionLevels.Add(new CompetitionLevel { Name = "Recreational", DisplayOrder = 1, DivisionId = divisionId, GenderId = genders.SingleOrDefault(g => g.DivisionId == divisionId && g.Name == "Male").Id });
-                context.CompetitionLevels.Add(new CompetitionLevel { Name = "Recreational", DisplayOrder = 1, DivisionId = divisionId, GenderId = genders.SingleOrDefault(g => g.DivisionId == divisionId && g.Name == "Female").Id });
+                // divisionId = divisions.SingleOrDefault(d => d.Name == "Special Olympics").Id;
+                // context.CompetitionLevels.Add(new CompetitionLevel { Name = "Recreational", DisplayOrder = 1, DivisionId = divisionId, GenderId = genders.SingleOrDefault(g => g.DivisionId == divisionId && g.Name == "Co-Ed").Id });
+                // context.CompetitionLevels.Add(new CompetitionLevel { Name = "Recreational", DisplayOrder = 1, DivisionId = divisionId, GenderId = genders.SingleOrDefault(g => g.DivisionId == divisionId && g.Name == "Male").Id });
+                // context.CompetitionLevels.Add(new CompetitionLevel { Name = "Recreational", DisplayOrder = 1, DivisionId = divisionId, GenderId = genders.SingleOrDefault(g => g.DivisionId == divisionId && g.Name == "Female").Id });
 
-                divisionId = divisions.SingleOrDefault(d => d.Name == "Wheelchair").Id;
-                context.CompetitionLevels.Add(new CompetitionLevel { Name = "Recreational", DisplayOrder = 1, DivisionId = divisionId, GenderId = genders.SingleOrDefault(g => g.DivisionId == divisionId && g.Name == "Co-Ed").Id });
-                context.CompetitionLevels.Add(new CompetitionLevel { Name = "Recreational", DisplayOrder = 1, DivisionId = divisionId, GenderId = genders.SingleOrDefault(g => g.DivisionId == divisionId && g.Name == "Male").Id });
-                context.CompetitionLevels.Add(new CompetitionLevel { Name = "Recreational", DisplayOrder = 1, DivisionId = divisionId, GenderId = genders.SingleOrDefault(g => g.DivisionId == divisionId && g.Name == "Female").Id });
+                // divisionId = divisions.SingleOrDefault(d => d.Name == "Wheelchair").Id;
+                // context.CompetitionLevels.Add(new CompetitionLevel { Name = "Recreational", DisplayOrder = 1, DivisionId = divisionId, GenderId = genders.SingleOrDefault(g => g.DivisionId == divisionId && g.Name == "Co-Ed").Id });
+                // context.CompetitionLevels.Add(new CompetitionLevel { Name = "Recreational", DisplayOrder = 1, DivisionId = divisionId, GenderId = genders.SingleOrDefault(g => g.DivisionId == divisionId && g.Name == "Male").Id });
+                // context.CompetitionLevels.Add(new CompetitionLevel { Name = "Recreational", DisplayOrder = 1, DivisionId = divisionId, GenderId = genders.SingleOrDefault(g => g.DivisionId == divisionId && g.Name == "Female").Id });
 
-                divisionId = divisions.SingleOrDefault(d => d.Name == "Unified").Id;
+                // divisionId = divisions.SingleOrDefault(d => d.Name == "Unified").Id;
+                // context.CompetitionLevels.Add(new CompetitionLevel { Name = "Recreational", DisplayOrder = 1, DivisionId = divisionId, GenderId = genders.SingleOrDefault(g => g.DivisionId == divisionId && g.Name == "Co-Ed").Id });
+                // context.CompetitionLevels.Add(new CompetitionLevel { Name = "Recreational", DisplayOrder = 1, DivisionId = divisionId, GenderId = genders.SingleOrDefault(g => g.DivisionId == divisionId && g.Name == "Male").Id });
+                // context.CompetitionLevels.Add(new CompetitionLevel { Name = "Recreational", DisplayOrder = 1, DivisionId = divisionId, GenderId = genders.SingleOrDefault(g => g.DivisionId == divisionId && g.Name == "Female").Id });
+
+                divisionId = divisions.SingleOrDefault(d => d.Name == "Over 35").Id;
                 context.CompetitionLevels.Add(new CompetitionLevel { Name = "Recreational", DisplayOrder = 1, DivisionId = divisionId, GenderId = genders.SingleOrDefault(g => g.DivisionId == divisionId && g.Name == "Co-Ed").Id });
                 context.CompetitionLevels.Add(new CompetitionLevel { Name = "Recreational", DisplayOrder = 1, DivisionId = divisionId, GenderId = genders.SingleOrDefault(g => g.DivisionId == divisionId && g.Name == "Male").Id });
                 context.CompetitionLevels.Add(new CompetitionLevel { Name = "Recreational", DisplayOrder = 1, DivisionId = divisionId, GenderId = genders.SingleOrDefault(g => g.DivisionId == divisionId && g.Name == "Female").Id });

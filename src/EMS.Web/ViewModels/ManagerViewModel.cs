@@ -67,5 +67,8 @@ namespace EMS.Web.ViewModels
         [Display(Name = "Email Address")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+        
+        [Display(Name="How did you hear about us?")]
+        public string HowDidYouHearAboutUs { get; set; }
     }
 }

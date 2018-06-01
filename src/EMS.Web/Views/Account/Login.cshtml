@@ -4,7 +4,7 @@
     ViewBag.Title = "Team Registration";
 }
 <h1>@ViewBag.Title</h1>
-@if (DateTime.Now > new DateTime(2018, 7, 4, 7, 0, 0))
+@if (DateTime.Now > new DateTime(2018, 7, 8, 7, 0, 0))
 {
 <div class="row">
     <div class="col-xs-12">
@@ -15,7 +15,7 @@
 
 <div class="row">
     <div class="col-sm-6">
-        @if (DateTime.Now < new DateTime(2018, 7, 4, 7, 0, 0))
+        @if (DateTime.Now < new DateTime(2018, 7, 8, 7, 0, 0))
         {
             <div class="well">
                 <label>Please register for a new account each year.</label><br />
@@ -62,11 +62,11 @@
                 </h3>
             </div>
         </div>
-        @if (DateTime.Now < new DateTime(2018, 7, 4, 7, 0, 0))
+        @if (DateTime.Now < new DateTime(2018, 7, 8, 7, 0, 0))
         {
             <div class="row" style="color: #00ABBE; text-align: center; font-size: 1.5em; line-height: 1.3em;">
                 <div class="col-xs-12">
-                    Register from now till July 3 for $133
+                    Register from now till June 10 for $100
                 </div>
             </div>
         }
@@ -75,7 +75,7 @@
 @section Scripts {
     <script>
         (function (window, undefined) {
-            var eventDate = new Date(2018, 6, 8);
+            var eventDate = new Date(2018, 6, 14, 8, 0, 0);
 
             function dateDiff(date1, date2) {
                 var ms = date2 - date1, totalSecs, totalMins, totalHrs, totalDays, days, hrs, mins, secs;

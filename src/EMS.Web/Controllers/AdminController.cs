@@ -40,8 +40,6 @@ namespace EMS.Web.Controllers
             memoryStream.Seek(0, SeekOrigin.Begin);
 
             return File(memoryStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "CompleteTeams.xlsx");
-
-            return null;
         }
         
         private void AddFullTeamReport(XLWorkbook workbook, List<Team> teams)

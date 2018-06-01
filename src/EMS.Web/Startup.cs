@@ -122,6 +122,14 @@ namespace EMS.Web
 
             if (appSettings.Value.ThemeOptions.ThemeName.ToLower() == "see3slam")
             {
+                app.Map("/.well-known/acme-challenge/f7zuskQNCT9DJm3UBVp2Aku0xvK4_JA2oojt1GGOcXo", (myApp) =>
+                {
+                    myApp.Run(async context =>
+                    {
+                        await context.Response.WriteAsync("f7zuskQNCT9DJm3UBVp2Aku0xvK4_JA2oojt1GGOcXo.P7i0MAfwh8h4Er9lLDatf5hwA9ifJwWhU4FFuCYO-xU");
+                    });
+                });
+
                 app.UseMvc(routes =>
                 {
                     routes.MapRoute(
