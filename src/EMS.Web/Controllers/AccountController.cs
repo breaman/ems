@@ -131,7 +131,8 @@ namespace EMS.Web.Controllers
                     UserName = viewModel.Email,
                     Email = viewModel.Email,
                     EmailConfirmed = false,
-                    MemberSince = DateTimeOffset.Now
+                    MemberSince = DateTimeOffset.Now,
+                    HowDidYouHearAboutUs = viewModel.HowDidYouHearAboutUs
                 };
 
                 var result = await UserManager.CreateAsync(manager, viewModel.Password);

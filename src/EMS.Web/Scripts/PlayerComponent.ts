@@ -22,7 +22,7 @@ Vue.component('player', {
     },
     created() {
         this.genders = [{ id: 'M', name: 'Male' }, { id: 'F', name: 'Female' }];
-        this.shirtSizes = [{ id: 'YL', name: 'Youth Large' }, { id: 'S', name: 'Adult Small' }, { id: 'M', name: 'Adult Medium' }, { id: 'L', name: 'Adult Large' }, { id: 'XL', name: 'Adult XL' }, { id: 'XXL', name: 'Adult XXL' }, { id: 'XXXL', name: 'Adult XXXL' }];
+        this.shirtSizes = [{ id: 'YS', name: 'Youth Small' }, { id: 'YM', name: 'Youth Medium' }, { id: 'YL', name: 'Youth Large' }, { id: 'S', name: 'Adult Small' }, { id: 'M', name: 'Adult Medium' }, { id: 'L', name: 'Adult Large' }, { id: 'XL', name: 'Adult XL' }, { id: 'XXL', name: 'Adult XXL' }, { id: 'XXXL', name: 'Adult XXXL' }];
         this.grades = [{ id: -1, name: 'N/A' }, { id: 1, name: '1st' }, { id: 2, name: '2nd' }, { id: 3, name: '3rd' }, { id: 4, name: '4th' }, { id: 5, name: '5th' }, { id: 6, name: '6th' }, { id: 7, name: '7th' }, { id: 8, name: '8th' }, { id: 9, name: '9th' }, { id: 10, name: '10th' }, { id: 11, name: '11th' }, { id: 12, name: '12th' }];
         this.experiences = [{ id: 1, name: 'No organized basketball experience' }, { id: 2, name: 'YMCA, YWCA or grade school' },
         { id: 3, name: 'Other youth program' }, { id: 4, name: 'AAU' },
