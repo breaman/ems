@@ -83,7 +83,8 @@
             </ul>
         </div>
         <div class="panel-heading-light">Payment Information</div>
-        <!-- Show player issues -->
+        <div class="info">Your payment transaction through PayPal will appear on your credit card as follows: PayPal "TRI CITIES".</div>
+        <!-- Show form issues -->
         <div class="alert alert-warning" v-show="errors.any()">
             <div class="help is-danger" v-for="formError in errors.all()">{{formError}}</div>
         </div>
@@ -202,6 +203,7 @@
     <div class="panel panel-default" v-if="paymentSuccessful">
         <div class="col-xs-12">
             <h2>Thank You - Your payment has been processed</h2>
+            <p class="instructions">Your payment transaction through PayPal will appear on your credit card as follows: PayPal "TRI CITIES".</p>
             <p class="instructions">
                 Thank you for participating in @AppSettings.Value.TournamentName, we look forward to seeing you bring your "A" game on tournament day.
             </p>
