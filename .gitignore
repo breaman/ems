@@ -264,3 +264,4 @@ wwwroot/
 /src/EMS.Web/Properties/PublishProfiles/see3slamtest - Web Deploy.pubxml
 /src/EMS.Web/appsettings.see3slamtest.json
 /src/EMS.Web/appsettings.see3slamdev.json
+/src/EMS.Web/appsettings.see3slamprod.json
