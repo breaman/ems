@@ -2,15 +2,22 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using AutoMapper;
 using ClosedXML.Excel;
 using EMS.Domain.Abstract;
 using EMS.Domain.Models;
 using EMS.Web.Models;
+using EMS.Web.Services;
+using EMS.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,11 +26,22 @@ namespace EMS.Web.Controllers
     public class AdminController : Controller
     {
         public UserManager<User> UserManager { get; }
-        public ITeamRepository TeamRepository { get; private set; }
-        public AdminController(ITeamRepository teamRepository, UserManager<User> userManager)
+        public ITeamRepository TeamRepository { get; }
+        public ITransactionHistoryRepository TransactionHistoryRepository { get; }
+        public IMapper Mapper { get; }
+        public IEmailSender EmailSender { get; }
+        public IEmailViewRenderer EmailViewRenderer { get; }
+        public AppSettings AppSettings { get; }
+        public AdminController(ITeamRepository teamRepository, UserManager<User> userManager, ITransactionHistoryRepository transactionHistoryRepository,
+            IMapper mapper, IEmailSender emailSender, IEmailViewRenderer emailViewRenderer, IOptions<AppSettings> appSettings)
         {
             UserManager = userManager;
             TeamRepository = teamRepository;
+            TransactionHistoryRepository = transactionHistoryRepository;
+            Mapper = mapper;
+            EmailSender = emailSender;
+            EmailViewRenderer = emailViewRenderer;
+            AppSettings = appSettings.Value;
         }
 
         [Authorize(Roles = "Administrator,Support")]
@@ -41,7 +59,39 @@ namespace EMS.Web.Controllers
 
             return File(memoryStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "CompleteTeams.xlsx");
         }
-        
+
+        public async Task<IActionResult> ResendConfirmation(int id)
+        {
+            await SendConfirmationEmail(new List<int> { id });
+            return View();
+        }
+
+        private async Task SendConfirmationEmail(List<int> teamIds)
+        {
+            var viewDataDictionary = new ViewDataDictionary(new EmptyModelMetadataProvider(), new ModelStateDictionary());
+            
+            IQueryable<Team> teams = TeamRepository.AllIncluding(t => t.Division, t => t.CompetitionLevel, t => t.Members, t => t.Gender, t => t.Manager).Where(t => teamIds.Contains(t.Id));
+            List<TransactionHistory> transactionHistory = TransactionHistoryRepository.All.ToList();
+
+            foreach (var team in teams)
+            {
+                var teamViewModel = Mapper.Map<RegisteredTeamViewModel>(team);
+
+                viewDataDictionary.Model = new TeamRegisteredViewModel
+                {
+                    EmailAddress = team.Manager.Email,
+                    FirstName = team.Manager.FirstName,
+                    LastName = team.Manager.LastName,
+                    Members = Mapper.Map<IList<RegisteredParticipantViewModel>>(team.Members),
+                    Team = teamViewModel,
+                    DateRegistered = transactionHistory.SingleOrDefault(t => t.TransactionId == team.PaymentTransactionId).TransactionDate
+                };
+
+                var message = await EmailViewRenderer.RenderAsync("TeamRegistered", viewDataDictionary);
+                await EmailSender.SendEmailAsync(team.Manager.Email, $"{AppSettings.TournamentName} Confirmation - {team.Name}", message);
+            }
+        }
+
         private void AddFullTeamReport(XLWorkbook workbook, List<Team> teams)
         {
             IXLWorksheet completedTeams = workbook.Worksheets.Add("FullPlayerReport");

@@ -4,18 +4,19 @@
     ViewBag.Title = "Team Registration";
 }
 <h1>@ViewBag.Title</h1>
-@if (DateTime.Now > new DateTime(2018, 7, 8, 7, 0, 0))
+@if (DateTime.Now > new DateTime(2018, 7, 9, 7, 0, 0))
 {
 <div class="row">
     <div class="col-xs-12">
-        <img class="img-responsive" src="~/img/See3Slam/registrationClosed.png" />
+        <h1>2018 Registration is now CLOSED</h1>
+        <h3>Brackets are coming!</h3>
     </div>
 </div>
 }
 
 <div class="row">
     <div class="col-sm-6">
-        @if (DateTime.Now < new DateTime(2018, 7, 8, 7, 0, 0))
+        @if (DateTime.Now < new DateTime(2018, 7, 9, 7, 0, 0))
         {
             <div class="well">
                 <label>Please register for a new account each year.</label><br />
@@ -62,7 +63,7 @@
                 </h3>
             </div>
         </div>
-        @if (DateTime.Now < new DateTime(2018, 7, 8, 7, 0, 0))
+        @if (DateTime.Now < new DateTime(2018, 7, 9, 7, 0, 0))
         {
             <div class="row" style="color: #00ABBE; text-align: center; font-size: 1.5em; line-height: 1.3em;">
                 <div class="col-xs-12">

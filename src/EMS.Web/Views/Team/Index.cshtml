@@ -28,14 +28,14 @@
             <div class="pull-right"><strong>Click "Proceed to Checkout" NOW to finalize your registration and complete payment.</strong></div>
             <div class="pull-right"><strong>Please make sure you have saved your team(s) before proceeding to checkout.</strong></div>
         </div>
-        @if (DateTime.Now < new DateTime(2018, 7, 9, 7, 0, 0) || User.HasClaim(ClaimTypes.Role, "Administrator"))
+        @if (DateTime.Now < new DateTime(2018, 7, 9, 0, 0, 0) || User.HasClaim(ClaimTypes.Role, "Administrator"))
         {
         <div class="row">
             <a asp-controller="checkout" class="btn btn-green pull-right" style="width: 220px;"><div style="padding-top:15px">Proceed to Checkout</div></a>
         </div>
         }
     </div>
-@if (DateTime.Now < new DateTime(2018, 7, 9, 7, 0, 0) || User.HasClaim(ClaimTypes.Role, "Administrator"))
+@if (DateTime.Now < new DateTime(2018, 7, 9, 0, 0, 0) || User.HasClaim(ClaimTypes.Role, "Administrator"))
 {
     <div class="btn-group-justified panel panel-default add-team">
         <div class="btn-group">
@@ -149,7 +149,7 @@
                     </div>
                 </div>
             </div>
-@if (DateTime.Now < new DateTime(2018, 7, 9, 7, 0, 0) || User.HasClaim(ClaimTypes.Role, "Administrator"))
+@if (DateTime.Now < new DateTime(2018, 7, 9, 0, 0, 0) || User.HasClaim(ClaimTypes.Role, "Administrator"))
 {
             <div v-if="displayTeamDetails" class="col-sm-12" style="padding-bottom: 10px">
                 <button type="button" class="pull-left btn-green btn" v-if="!hasPromoCode" v-on:click="displayPromoCode=true" style="width: 200px; height: 50px">Enter Code</button>
